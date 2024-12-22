@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class NotificationService {
 
-    private Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
+    private Logger logger = LoggerFactory.getLogger(NotificationService.class);
 
     private final Configuration freemarkerConfig;
     private final NotificationRepository notificationRepository;
@@ -35,7 +35,7 @@ public class NotificationService {
 
         try {
 
-            Template template = freemarkerConfig.getTemplate(env.getProperty("application.template."+notificationDTO.getEmailTemplate()+".file"));
+            Template template = freemarkerConfig.getTemplate(env.getProperty("application.template."+notificationDTO.getKciKey()+".file"));
             StringWriter emailBodyWriter = new StringWriter();
             template.process(notificationDTO.getEmailCharacteristics(), emailBodyWriter);
 
@@ -43,14 +43,15 @@ public class NotificationService {
             Notification notificationEntity = new Notification();
             notificationEntity.setCustomerid(notificationDTO.getCustomerId());
             notificationEntity.setEmailid(notificationDTO.getEmailId());
-            notificationEntity.setEmailsubject(env.getProperty("application.template."+notificationDTO.getEmailTemplate()+".subject"));
+            notificationEntity.setKcikey(notificationDTO.getKciKey());
+            notificationEntity.setEmailsubject(env.getProperty("application.template."+notificationDTO.getKciKey()+".subject"));
             notificationEntity.setEmailbody(emailBodyWriter.toString());
             notificationEntity.setSendingtime(Instant.now());
 
             notificationRepository.save(notificationEntity);
 
         } catch (Exception e) {
-            logger.error("Exception in process notification",e);
+            logger.error("Exception in processing notification",e);
         }
     }
 

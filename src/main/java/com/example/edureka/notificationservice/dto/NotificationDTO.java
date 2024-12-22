@@ -12,6 +12,6 @@ public class NotificationDTO {
 
     private Integer customerId;
     private String emailId;
-    private String emailTemplate;
+    private String kciKey;
     private Map<String,String> emailCharacteristics;
 }

@@ -24,7 +24,7 @@ public class KafkaConsumerService {
         this.notificationService = notificationService;
     }
 
-    @KafkaListener(topics={"notification_topic"},groupId="notification-processing-group",concurrency = "2")
+    @KafkaListener(topics={"notification_topic"},groupId="notification-processing-group",concurrency = "3")
     public void receiveNotificationRequest(@Payload NotificationRequest notificationRequest){
 
         logger.info("Notification request consumed "+notificationRequest);
@@ -37,7 +37,7 @@ public class KafkaConsumerService {
 
         NotificationDTO notificationDTO = NotificationDTO.builder().customerId(notificationRequest.customerId())
                                          .emailId(notificationRequest.emailId())
-                                            .emailTemplate(notificationRequest.emailTemplate())
+                                            .kciKey(notificationRequest.kciKey())
                                                             .emailCharacteristics(characteristics)
                                                                         .build();
 

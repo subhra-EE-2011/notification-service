@@ -4,6 +4,6 @@ import java.util.List;
 
 public record NotificationRequest(Integer customerId,
                                   String emailId,
-                                  String emailTemplate,
+                                  String kciKey,
                                   List<NVPair> characteristics) {
 }

@@ -28,6 +28,17 @@ public class Notification {
     @Column(name = "customerid", nullable = false)
     private Integer customerid;
 
+    @Column(name = "kcikey", nullable = false, length = 50)
+    private String kcikey;
+
+    public String getKcikey() {
+        return kcikey;
+    }
+
+    public void setKcikey(String kcikey) {
+        this.kcikey = kcikey;
+    }
+
     public Integer getCustomerid() {
         return customerid;
     }
